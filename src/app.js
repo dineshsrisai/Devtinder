@@ -35,6 +35,11 @@ app.options("/user",(req,res)=>{
     res.send("Successfully options to DB!");
 });
 
+app.get("/user/:userId/:name",(req,res)=>{
+    console.log(req.params);
+    res.send({firstName : "DineshSriSai",lastName : "Rudrakshala"});
+});
+
 app.listen(7777,()=>{
     console.log("Server is successfully listening on port 7777");
 });
