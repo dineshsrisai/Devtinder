@@ -6,12 +6,33 @@ app.use("/test",(req,res)=>{
     res.send("Tested!");
 });
 
-app.use("/hello",(req,res)=>{
-    res.send("Hello!");
+app.get("/user",(req,res)=>{
+    res.send({firstName : "dinesh", lastName : "srisai"});
 });
 
-app.use("/",(req,res)=>{
-    res.send("Home page");
+app.post("/user",(req,res)=>{
+    res.send("Successfully saved to DB!");
+});
+
+app.delete("/user",(req,res)=>{
+    res.send("Successfully deleted from DB!");
+});
+
+app.patch("/user",(req,res)=>{
+    res.send("Successfully patched to DB!");
+});
+
+app.put("/user",(req,res)=>{
+    res.send("Successfully put to DB!");
+});
+
+app.head("/user",(req,res)=>{
+    console.log("HEAD request received!"); // Check your terminal!
+    res.send("Successfully headed to DB!");
+});
+
+app.options("/user",(req,res)=>{
+    res.send("Successfully options to DB!");
 });
 
 app.listen(7777,()=>{
