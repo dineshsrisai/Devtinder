@@ -2,43 +2,27 @@ const express = require("express");
 
 const app = express();
 
-app.use("/test",(req,res)=>{
-    res.send("Tested!");
-});
-
-app.get("/user",(req,res)=>{
-    res.send({firstName : "dinesh", lastName : "srisai"});
-});
-
-app.post("/user",(req,res)=>{
-    res.send("Successfully saved to DB!");
-});
-
-app.delete("/user",(req,res)=>{
-    res.send("Successfully deleted from DB!");
-});
-
-app.patch("/user",(req,res)=>{
-    res.send("Successfully patched to DB!");
-});
-
-app.put("/user",(req,res)=>{
-    res.send("Successfully put to DB!");
-});
-
-app.head("/user",(req,res)=>{
-    console.log("HEAD request received!"); // Check your terminal!
-    res.send("Successfully headed to DB!");
-});
-
-app.options("/user",(req,res)=>{
-    res.send("Successfully options to DB!");
-});
-
-app.get("/user/:userId/:name",(req,res)=>{
-    console.log(req.params);
-    res.send({firstName : "DineshSriSai",lastName : "Rudrakshala"});
-});
+app.use("/user",[(req,res,next) => {
+    console.log("Handling route 1");
+    // res.send("Responce 1");
+    next();
+},(req,res,next)=>{
+    console.log("Handling route 2");
+    // res.send("Responce 2");
+    next();
+},[(req,res,next)=>{
+    console.log("Handling route 3");
+    // res.send("Responce 3");
+    next();
+},(req,res,next)=>{
+    console.log("Handling route 4");
+    // res.send("Responce 4");
+    next();
+}],(req,res,next)=>{
+    console.log("Handling route 5");
+    res.send("Responce 5");
+}
+]);
 
 app.listen(7777,()=>{
     console.log("Server is successfully listening on port 7777");
