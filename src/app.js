@@ -38,6 +38,16 @@ app.post("/signup",async(req,res)=>{
     }
 });
 
+app.delete("/user",async(req,res)=>{
+    const userId = req.body.userId;
+    try{
+        const user = await User.findByIdAndDelete(userId);
+        res.send("User Deleted Successfully");
+    }catch(err){
+        res.status(400).send("Error deleting the user!!");
+    }
+});
+
 connectDB()
     .then(()=>{
         console.log("Database connection established...");
