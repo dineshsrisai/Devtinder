@@ -24,20 +24,20 @@ const connectionRequestSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-
 connectionRequestSchema.index({ fromUserId: 1, toUserId: 1 });
 
 connectionRequestSchema.pre("save", function (next) {
   const connectionRequest = this;
-  // Check if the fromUserId is same as toUserId
-  if (connectionRequest.fromUserId.equals(connectionRequest.toUserId)) {
-    return next(new Error("Cannot send connection request to yourself!")); // Pass error to next
+    if (connectionRequest.fromUserId.equals(connectionRequest.toUserId)) {
+    return next(new Error("Cannot send connection request to yourself!"));
   }
+  
+  // next(); // Important: Call next() when validation passes
 });
 
-const ConnectionRequestModel = mongoose.model(
+const ConnectionRequest = mongoose.model(
   "ConnectionRequest",
   connectionRequestSchema
 );
 
-module.exports = ConnectionRequestModel;
+module.exports = ConnectionRequest;
