@@ -28,10 +28,10 @@ connectionRequestSchema.index({ fromUserId: 1, toUserId: 1 });
 
 connectionRequestSchema.pre("save", function (next) {
   const connectionRequest = this;
-    if (connectionRequest.fromUserId.equals(connectionRequest.toUserId)) {
+  if (connectionRequest.fromUserId.equals(connectionRequest.toUserId)) {
     return next(new Error("Cannot send connection request to yourself!"));
   }
-  
+
   // next(); // Important: Call next() when validation passes
 });
 
