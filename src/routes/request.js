@@ -14,12 +14,10 @@ requestRouter.post(
       const toUserId = req.params.toUserId;
       const status = req.params.status;
 
-      // Validate ObjectId
       if (!mongoose.Types.ObjectId.isValid(toUserId)) {
         return res.status(400).json({ message: "Invalid user ID" });
       }
 
-      // Check if user is sending request to themselves
       if (fromUserId.toString() === toUserId) {
         return res
           .status(400)
@@ -76,14 +74,7 @@ requestRouter.post(
       const loggedInUser = req.user;
       const { status, requestId } = req.params;
 
-      // ADD THESE DEBUG LOGS
-      console.log("Request ID:", requestId);
-      console.log("Logged in user ID:", loggedInUser._id);
-      console.log("Status param:", status);
-
-      // Check if request exists at all
       const anyRequest = await ConnectionRequest.findById(requestId);
-      console.log("Found request:", anyRequest);
 
       const allowedStatus = ["accepted", "rejected"];
       if (!allowedStatus.includes(status)) {
