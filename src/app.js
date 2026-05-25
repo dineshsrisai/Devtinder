@@ -3,6 +3,7 @@ const connectDB = require("./config/database");
 const app = express();
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+require("dotenv").config();
 
 app.use(
   cors({
@@ -10,14 +11,13 @@ app.use(
     credentials: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
-  })
+  }),
 );
 
 app.options("/{*path}", cors());
 
 app.use(express.json());
 app.use(cookieParser());
-
 
 const authRouter = require("./routes/auth");
 const profileRouter = require("./routes/profile");
@@ -32,7 +32,7 @@ app.use("/", userRouter);
 connectDB()
   .then(() => {
     console.log("Database connection established...");
-    app.listen(7777, () => {
+    app.listen(process.env.PORT, () => {
       console.log("Server is successful listening on port 7777...");
     });
   })
