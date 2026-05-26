@@ -19,7 +19,7 @@ app.use(
   }),
 );
 
-app.options("/{*path}", cors());
+app.options(/.*/, cors());
 
 app.use(express.json());
 app.use(cookieParser());
